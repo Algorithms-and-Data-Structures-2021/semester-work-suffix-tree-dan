@@ -70,5 +70,28 @@ namespace itis {
     }
     nodes_.clear();
   }
+  bool SuffixTree::hasSubstring(const string &str) {
+    Node* curr_node = &root_;
+    int string_compare_index = 0;
+    while (string_compare_index < static_cast<int> (str.length())){
+      int edge_number = findEdge(const_cast<char &>(str[string_compare_index]), *curr_node);
+      if (edge_number == -1){
+        return false;
+      }
+      else {
+        for (int i = curr_node->edges[edge_number][0]; i < curr_node->edges[edge_number][1]; i++){
+          if (str_[i] != str[string_compare_index]){
+            return false;
+          }
+          string_compare_index++;
+          if (string_compare_index == static_cast<int>(str.length())){
+            break;
+          }
+        }
+      }
+      curr_node = curr_node->next_nodes[edge_number];
+    }
+    return true;
+  }
   SuffixTree::SuffixTree() = default;
 }  // namespace itis

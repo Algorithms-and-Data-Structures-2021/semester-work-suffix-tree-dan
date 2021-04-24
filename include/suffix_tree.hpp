@@ -24,6 +24,7 @@ namespace itis {
   struct SuffixTree {
     SuffixTree();
     virtual ~SuffixTree();
+    bool hasSubstring(std::string const &);
 
    private:
     std::vector<Node*> nodes_;
