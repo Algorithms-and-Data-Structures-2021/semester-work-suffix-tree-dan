@@ -11,9 +11,10 @@
 using namespace std;
 using namespace itis;
 
+
 // абсолютный путь до набора данных и папки проекта
-static constexpr auto kDatasetPath = string_view{PROJECT_DATASET_DIR};
-static constexpr auto kProjectPath = string_view{PROJECT_SOURCE_DIR};
+//static constexpr auto kDatasetPath = string_view{PROJECT_DATASET_DIR};
+//static constexpr auto kProjectPath = string_view{PROJECT_SOURCE_DIR};
 
 int main(int argc, char **argv) {
 
@@ -37,14 +38,14 @@ int main(int argc, char **argv) {
   ss >> number;  // number = 2
 
   // работа с набором данных
-  const auto path = string(kDatasetPath);
-  cout << "Path to the 'dataset/' folder: " << path << endl;
-
-  auto input_file = ifstream(path + "/dataset-example.csv");
-
-  if (input_file) {
-    // чтение и обработка набора данных ...
-  }
+//  const auto path = string(kDatasetPath);
+//  cout << "Path to the 'dataset/' folder: " << path << endl;
+//
+//  auto input_file = ifstream(path + "/dataset-example.csv");
+//
+//  if (input_file) {
+//    // чтение и обработка набора данных ...
+//  }
 
   // Контрольный тест: операции добавления, удаления, поиска и пр. над структурой данных
 
