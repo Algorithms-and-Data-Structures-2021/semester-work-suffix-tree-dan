@@ -2,8 +2,8 @@
 
 // Заголовочный файл с объявлением структуры данных
 
-#include <unordered_map>
 #include <vector>
+#include <string>
 namespace itis {
 
   // Tip 1: объявите здесь необходимые структуры, функции, константы и прочее
@@ -23,14 +23,15 @@ namespace itis {
 
   struct SuffixTree {
     SuffixTree();
+    virtual ~SuffixTree();
 
    private:
+    std::vector<Node*> nodes_;
     Node root_;
     void addSuffix(int const);
     std::string str_;
     int findEdge(char &, Node const&);
    public:
-    const Node& getRoot() const;
     void createTree(std::string &);
   };
 }  // namespace itis

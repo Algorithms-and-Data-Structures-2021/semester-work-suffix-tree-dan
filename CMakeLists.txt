@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.15 FATAL_ERROR)
 
 # Определите название вашего проекта (должно совпадать с названием репозитория).
 # Примечание: замените символ '-' на '_'.
-project(semester_work_template CXX)
+project(semester_work_suffix_tree_dan CXX)
 
 # === Определение стандарта C++ для всего проекта ===
 
@@ -25,7 +25,8 @@ set_project_warnings(project_warnings)  # set_project_warnings - определ�
 
 # === Добавление переменных пути (target) ===
 add_library(project_paths INTERFACE)
-
+set(PROJECT_NAME semester_work_suffix_tree_dan)
+set(CMAKE_SOURCE_DIR /home/miguelius/CLionProjects/semester-work-suffix-tree-dan)
 target_compile_definitions(project_paths INTERFACE
         PROJECT_SOURCE_DIR="${CMAKE_SOURCE_DIR}"
         PROJECT_DATASET_DIR="${CMAKE_SOURCE_DIR}/dataset/data")
