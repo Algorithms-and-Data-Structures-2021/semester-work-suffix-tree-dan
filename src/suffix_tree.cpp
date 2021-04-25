@@ -60,46 +60,65 @@ namespace itis {
     return -1;
   }
   SuffixTree::~SuffixTree() {
-    queue<Node*> queue;
+    queue<Node *> queue;
     queue.push(&root_);
-    while (!queue.empty()){
-      Node* curr_node = queue.front();
-      for (Node* node : curr_node->next_nodes){
-        if (node != nullptr){
+    while (!queue.empty()) {
+      Node *curr_node = queue.front();
+      for (Node *node : curr_node->next_nodes) {
+        if (node != nullptr) {
           queue.push(node);
         }
       }
       curr_node->next_nodes.clear();
       curr_node->edges.clear();
       curr_node->chars.clear();
-      if (curr_node != &root_){
+      if (curr_node != &root_) {
         delete curr_node;
       }
       queue.pop();
     }
   }
-  bool SuffixTree::hasSubstring(const string &str) {
-    Node* curr_node = &root_;
+  int SuffixTree::hasSubstring(const string &str, bool needLast) {
+    Node *curr_node = &root_;
+    Node *previous_node = &root_;
     int string_compare_index = 0;
-    while (string_compare_index < static_cast<int> (str.length())){
-      int edge_number = findEdge(const_cast<char &>(str[string_compare_index]), *curr_node);
-      if (edge_number == -1){
-        return false;
+    int edge_number;
+    while (string_compare_index < static_cast<int>(str.length())) {
+      edge_number = findEdge(const_cast<char &>(str[string_compare_index]), *curr_node);
+      if (edge_number == -1) {
+        return 0;
       }
-      else {
-        for (int i = curr_node->edges[edge_number][0]; i < curr_node->edges[edge_number][1]; i++){
-          if (str_[i] != str[string_compare_index]){
-            return false;
-          }
-          string_compare_index++;
-          if (string_compare_index == static_cast<int>(str.length())){
-            break;
-          }
+      for (int i = curr_node->edges[edge_number][0]; i < curr_node->edges[edge_number][1]; i++) {
+        if (str_[i] != str[string_compare_index]) {
+          return 0;
+        }
+        string_compare_index++;
+        if (string_compare_index == static_cast<int>(str.length())) {
+          break;
         }
       }
+      previous_node = curr_node;
       curr_node = curr_node->next_nodes[edge_number];
     }
-    return true;
+    if (needLast) {
+      int last_entry;
+      if (curr_node) {
+        last_entry = curr_node->edges[0][1];
+        for (int i = 1; i < curr_node->edges.size(); i++) {
+          last_entry = max(last_entry, curr_node->edges[i][1]);
+        }
+      } else {
+        last_entry = previous_node->edges[edge_number][1];
+      }
+      return last_entry - str.length() - 1;
+    }
+    return 1;
+  }
+  bool SuffixTree::hasSubstring(const string &str) {
+    return hasSubstring(str, false) != 0;
+  }
+  int SuffixTree::findLastEntry(const string &substr) {
+    return hasSubstring(substr, true);
   }
   SuffixTree::SuffixTree() = default;
 }  // namespace itis

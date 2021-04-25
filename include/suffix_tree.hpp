@@ -25,8 +25,9 @@ namespace itis {
     SuffixTree();
     virtual ~SuffixTree();
     bool hasSubstring(std::string const &);
-
+    int findLastEntry(std::string const &);
    private:
+    int hasSubstring(std::string const &, bool needLast);
     Node root_;
     void addSuffix(int const);
     std::string str_;
