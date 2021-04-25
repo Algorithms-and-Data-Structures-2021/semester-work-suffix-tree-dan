@@ -27,7 +27,6 @@ namespace itis {
     bool hasSubstring(std::string const &);
 
    private:
-    std::vector<Node*> nodes_;
     Node root_;
     void addSuffix(int const);
     std::string str_;

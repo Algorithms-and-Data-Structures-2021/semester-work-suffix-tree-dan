@@ -1,4 +1,5 @@
 #include <string>
+#include <queue>
 #include "suffix_tree.hpp"
 
 // файл с определениями
@@ -24,7 +25,6 @@ namespace itis {
       for (; edge_compare_index < edge[1]; edge_compare_index++, suffix_compare_index++) {
         if (str_[suffix_compare_index] != str_[edge_compare_index]) {
           Node *new_node = new Node();
-          nodes_.push_back(new_node);
           new_node->next_nodes.push_back(curr_node->next_nodes[index_of_edge]);
           curr_node->next_nodes[index_of_edge] = new_node;
           new_node->edges.push_back({edge_compare_index, edge[1]});
@@ -43,7 +43,6 @@ namespace itis {
     input_str.push_back('$');
     Node root;
     root_ = root;
-    nodes_.push_back(&root_);
     str_ = input_str;
     root_.edges.push_back({0, static_cast<int>(str_.length())});
     root_.next_nodes.push_back(nullptr);
@@ -61,14 +60,23 @@ namespace itis {
     return -1;
   }
   SuffixTree::~SuffixTree() {
-    for (int i = 1; i < static_cast<int>(nodes_.size()); i++) {
-      Node* node = nodes_[i];
-      node->next_nodes.clear();
-      node->chars.clear();
-      node->edges.clear();
-      delete node;
+    queue<Node*> queue;
+    queue.push(&root_);
+    while (!queue.empty()){
+      Node* curr_node = queue.front();
+      for (Node* node : curr_node->next_nodes){
+        if (node != nullptr){
+          queue.push(node);
+        }
+      }
+      curr_node->next_nodes.clear();
+      curr_node->edges.clear();
+      curr_node->chars.clear();
+      if (curr_node != &root_){
+        delete curr_node;
+      }
+      queue.pop();
     }
-    nodes_.clear();
   }
   bool SuffixTree::hasSubstring(const string &str) {
     Node* curr_node = &root_;
