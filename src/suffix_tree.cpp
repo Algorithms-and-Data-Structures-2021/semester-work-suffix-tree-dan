@@ -78,47 +78,45 @@ namespace itis {
       queue.pop();
     }
   }
-  int SuffixTree::hasSubstring(const string &str, bool needLast) {
+  bool SuffixTree::hasSubstring(const string &str) {
     Node *curr_node = &root_;
-    Node *previous_node = &root_;
     int string_compare_index = 0;
-    int edge_number;
     while (string_compare_index < static_cast<int>(str.length())) {
-      edge_number = findEdge(const_cast<char &>(str[string_compare_index]), *curr_node);
+      int edge_number = findEdge(const_cast<char &>(str[string_compare_index]), *curr_node);
       if (edge_number == -1) {
-        return 0;
+        return false;
       }
       for (int i = curr_node->edges[edge_number][0]; i < curr_node->edges[edge_number][1]; i++) {
         if (str_[i] != str[string_compare_index]) {
-          return 0;
+          return false;
         }
         string_compare_index++;
         if (string_compare_index == static_cast<int>(str.length())) {
           break;
         }
       }
-      previous_node = curr_node;
       curr_node = curr_node->next_nodes[edge_number];
     }
-    if (needLast) {
-      int last_entry;
-      if (curr_node) {
-        last_entry = curr_node->edges[0][1];
-        for (int i = 1; i < curr_node->edges.size(); i++) {
-          last_entry = max(last_entry, curr_node->edges[i][1]);
+    return true;
+  }
+  int SuffixTree::getCountOfAllSubstr() {
+    queue<Node*> nodes;
+    nodes.push(&root_);
+    int count = 0;
+    while (!nodes.empty()){
+      Node* curr_node = nodes.front();
+      for (int i = 0; i < curr_node->edges.size(); i++){
+        count += curr_node->edges[i][1] - curr_node->edges[i][0];
+        if (curr_node->next_nodes[i] == nullptr){
+          count--;
         }
-      } else {
-        last_entry = previous_node->edges[edge_number][1];
+        else {
+          nodes.push(curr_node->next_nodes[i]);
+        }
       }
-      return last_entry - str.length() - 1;
+      nodes.pop();
     }
-    return 1;
-  }
-  bool SuffixTree::hasSubstring(const string &str) {
-    return hasSubstring(str, false) != 0;
-  }
-  int SuffixTree::findLastEntry(const string &substr) {
-    return hasSubstring(substr, true);
+    return count;
   }
   SuffixTree::SuffixTree() = default;
 }  // namespace itis
