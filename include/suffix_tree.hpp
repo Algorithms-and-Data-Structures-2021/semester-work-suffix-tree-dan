@@ -6,7 +6,6 @@
 #include <string>
 namespace itis {
 
-
   /*
    * Структура Node - узел суффиксного дерева
    *
@@ -25,7 +24,7 @@ namespace itis {
    */
   struct Node {
    public:
-    std::vector<Node*> next_nodes;
+    std::vector<Node *> next_nodes;
     std::vector<char> chars;
     std::vector<std::vector<int>> edges;
   };
@@ -65,7 +64,8 @@ namespace itis {
     Node root_;
     void addSuffix(int const);
     std::string str_;
-    int findEdge(char &, Node const&);
+    int findEdge(char &, Node const &);
+
    public:
     SuffixTree();
     virtual ~SuffixTree();
