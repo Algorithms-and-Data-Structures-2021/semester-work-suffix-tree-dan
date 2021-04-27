@@ -55,7 +55,7 @@
 Зайдите на [главную страницу](https://github.com/Algorithms-and-Data-Structures-2021/semester-work-suffix-tree-dan) проекта и нажмите кнопку code, показанную  на рисунке снизу
 ![clone](https://user-images.githubusercontent.com/70788419/116008429-26ca8100-a61d-11eb-8d58-9a2f5ff2394b.png)
  
- Либо вы можете склонировать себе проект в локальный репозеторий с помощью консольной команды:
+ Либо вы можете склонировать себе проект в локальный репозиторий с помощью консольной команды:
 ```shell
 git clone https://github.com/Algorithms-and-Data-Structures-2021/semester-work-template.git
 ```
@@ -73,7 +73,7 @@ mkdir -p build && cd build
 cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo && cmake --config RelWithDebInfo --build . 
 ```
 
-Для автоматичекой сборки зайди в IDE(У меня это CLion) и нажмите на кнопку сборки проекта(в моем случае зеленый молоток)
+Для автоматичекой сборки зайдите в IDE(у меня это CLion) и нажмите на кнопку сборки проекта(в моем случае зеленый молоток)
 - [ ] Вставить картинку
 #### Генерация тестовых данных
 ##### Todo
