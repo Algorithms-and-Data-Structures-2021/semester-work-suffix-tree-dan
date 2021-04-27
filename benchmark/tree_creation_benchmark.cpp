@@ -9,7 +9,9 @@
 using namespace std;
 using namespace itis;
 int main(int /*argc*/, char ** /*argv*/) {
+
   // все то же самое, что и в других тестах. За информацией идите в count_all_substr_benchmark.cpp
+
   const string absolute_input_path = "/home/miguelius/CLionProjects/semester-work-suffix-tree-dan/dataset/data/tree_creation";
   const string absolute_output_path = "/home/miguelius/CLionProjects/semester-work-suffix-tree-dan/benchmark/results/tree_creation";
   string *file_names = new string[12]{"100.csv",   "500.csv",    "1000.csv",   "5000.csv",   "10000.csv",  "25000.csv",
