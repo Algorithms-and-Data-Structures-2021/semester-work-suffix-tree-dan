@@ -8,23 +8,41 @@
 #include "string"
 using namespace std;
 using namespace itis;
-int main(int /*argc*/, char ** /*argv*/) {
+int main() {
+  // абсолютный путь до файла с настройками
+  ifstream setting_file("/home/miguelius/CLionProjects/semester-work-suffix-tree-dan/benchmark/has-substr-settings.txt");
+  vector<string> settings;
+  if (setting_file.is_open()) {
+    string line;
+    while (getline(setting_file, line)) {
+      settings.push_back(line.substr(line.find('=') + 1, line.length()));
+    }
+  }
   // абсолютный путь до папки с тестовыми данными
-  const string absolute_input_path =
-      "/home/miguelius/CLionProjects/semester-work-suffix-tree-dan/dataset/data/has_substr";
+  const string absolute_input_path = settings[0];
   // абсолютнуй путь до папки, в которую хотим сохранить результаты тестов
-  const string absolute_output_path =
-      "/home/miguelius/CLionProjects/semester-work-suffix-tree-dan/benchmark/results/has_substr";
+  const string absolute_output_path = settings[1];
   // считываем тестовую строку, из которой получились все эти подстроки
-  ifstream test_str_file(
-      "/home/miguelius/CLionProjects/semester-work-suffix-tree-dan/dataset/data/has_substr/test-string.csv");
+  ifstream test_str_file(settings[2]);
   string test_str;
   if (test_str_file.is_open()) {
     getline(test_str_file, test_str);
   }
-  string *file_names =
-      new string[12]{"100.csv",   "500.csv",    "1000.csv",   "5000.csv",   "10000.csv",  "25000.csv",
-                     "50000.csv", "100000.csv", "250000.csv", "500000.csv", "750000.csv", "1000000.csv"};
+  // парсим названия файлов из документа с настройками
+  vector<string> file_names;
+  settings[3].erase(0, settings[3].find("=") + 1);
+  int start = 0;
+  string delim = ",";
+  auto end = settings[3].find(delim);
+  while (end != std::string::npos)
+  {
+    file_names.push_back(settings[3].substr(start, end - start));
+    start = end + delim.length();
+    end = settings[3].find(delim, start);
+  }
+  file_names.push_back(settings[3].substr(start, end - start));
+
+  int count_of_test_repeat = stoi(settings[4]);
   SuffixTree suffixTree;
   suffixTree.createTree(test_str);
   // алгоритм тот же, если вы хотите понять, что тут происходит, посмотрите комментарии в файле
@@ -39,7 +57,7 @@ int main(int /*argc*/, char ** /*argv*/) {
       if (input_file.is_open()) {
         string test_substr;
         while (getline(input_file, test_substr)) {
-          for (int k = 0; k < 10; k++) {
+          for (int k = 0; k < count_of_test_repeat; k++) {
             const auto time_point_before = chrono::high_resolution_clock::now();
             suffixTree.hasSubstring(test_substr.substr(0, test_substr.length() - 1));
             const auto time_point_after = chrono::high_resolution_clock::now();

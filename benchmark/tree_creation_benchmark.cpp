@@ -12,10 +12,33 @@ int main(int /*argc*/, char ** /*argv*/) {
 
   // все то же самое, что и в других тестах. За информацией идите в count_all_substr_benchmark.cpp
 
-  const string absolute_input_path = "/home/miguelius/CLionProjects/semester-work-suffix-tree-dan/dataset/data/tree_creation";
-  const string absolute_output_path = "/home/miguelius/CLionProjects/semester-work-suffix-tree-dan/benchmark/results/tree_creation";
-  string *file_names = new string[12]{"100.csv",   "500.csv",    "1000.csv",   "5000.csv",   "10000.csv",  "25000.csv",
-                                    "50000.csv", "100000.csv", "250000.csv", "500000.csv", "750000.csv", "1000000.csv"};
+  // абсолютный путь до файла с настройками
+  ifstream setting_file("/home/miguelius/CLionProjects/semester-work-suffix-tree-dan/benchmark/tree-creation-settings.txt");
+  vector<string> settings;
+  if (setting_file.is_open()) {
+    string line;
+    while (getline(setting_file, line)) {
+      settings.push_back(line.substr(line.find('=') + 1, line.length()));
+    }
+  }
+
+  const string absolute_input_path = settings[0];
+  const string absolute_output_path = settings[1];
+  // парсим названия файлов из документа с настройками
+  vector<string> file_names;
+  settings[2].erase(0, settings[2].find("=") + 1);
+  int start = 0;
+  string delim = ",";
+  auto end = settings[2].find(delim);
+  while (end != std::string::npos)
+  {
+    file_names.push_back(settings[2].substr(start, end - start));
+    start = end + delim.length();
+    end = settings[2].find(delim, start);
+  }
+  file_names.push_back(settings[2].substr(start, end - start));
+
+  int count_of_test_repeat = stoi(settings[3]);
   for(int i = 0; i < 12; i++){
     string file_name = file_names[i];
     ofstream output_file(absolute_output_path + "/" + file_name, ios::app);
@@ -26,7 +49,7 @@ int main(int /*argc*/, char ** /*argv*/) {
       if (input_file.is_open()){
         string test_str;
         while (getline(input_file, test_str)){
-          for(int k = 0; k < 10; k++){
+          for(int k = 0; k < count_of_test_repeat; k++){
             SuffixTree suffixTree;
             const auto time_point_before = chrono::high_resolution_clock::now();
             suffixTree.createTree(test_str);

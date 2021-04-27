@@ -1,0 +1,5 @@
+absolute path to the dataset directory=/home/miguelius/CLionProjects/semester-work-suffix-tree-dan/dataset/data/has-substr
+absolute path to the directory, where you want to store results of benchmarks=/home/miguelius/CLionProjects/semester-work-suffix-tree-dan/benchmark/results/test
+absolute path to the test string=/home/miguelius/CLionProjects/semester-work-suffix-tree-dan/dataset/data/has_substr/test-string.csv
+file names=100.csv,500.csv,1000.csv,5000.csv,10000.csv,25000.csv,50000.csv,100000.csv,250000.csv,500000.csv,750000.csv,1000000.csv
+count of one data tests=10

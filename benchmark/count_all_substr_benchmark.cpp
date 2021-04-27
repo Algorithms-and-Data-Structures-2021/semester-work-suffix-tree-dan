@@ -9,12 +9,34 @@
 using namespace std;
 using namespace itis;
 int main(int /*argc*/, char ** /*argv*/) {
+  // абсолютный путь до файла с настройками
+  ifstream setting_file("/home/miguelius/CLionProjects/semester-work-suffix-tree-dan/benchmark/count-all-substr-settings.txt");
+  vector<string> settings;
+  if (setting_file.is_open()) {
+    string line;
+    while (getline(setting_file, line)) {
+      settings.push_back(line.substr(line.find('=') + 1, line.length()));
+    }
+  }
   // абсолютный путь до папки с тестовыми данными
-  const string absolute_input_path = "/home/miguelius/CLionProjects/semester-work-suffix-tree-dan/dataset/data/tree_creation";
+  const string absolute_input_path = settings[0];
   // абсолютнуй путь до папки, в которую хотим сохранить результаты тестов
-  const string absolute_output_path = "/home/miguelius/CLionProjects/semester-work-suffix-tree-dan/benchmark/results/count_all_substr";
-  string *file_names = new string[12]{"100.csv",   "500.csv",    "1000.csv",   "5000.csv",   "10000.csv",  "25000.csv",
-                                      "50000.csv", "100000.csv", "250000.csv", "500000.csv", "750000.csv", "1000000.csv"};
+  const string absolute_output_path = settings[1];
+  // парсим названия файлов из документа с настройками
+  vector<string> file_names;
+  settings[2].erase(0, settings[2].find("=") + 1);
+  int start = 0;
+  string delim = ",";
+  auto end = settings[2].find(delim);
+  while (end != std::string::npos)
+  {
+    file_names.push_back(settings[2].substr(start, end - start));
+    start = end + delim.length();
+    end = settings[2].find(delim, start);
+  }
+  file_names.push_back(settings[2].substr(start, end - start));
+
+  int count_of_test_repeat = stoi(settings[3]);
   // проходимся по всем файлам поочередно
   for(int i = 0; i < 12; i++){
     string file_name = file_names[i];
@@ -32,8 +54,8 @@ int main(int /*argc*/, char ** /*argv*/) {
         while (getline(input_file, test_str)){
           SuffixTree suffixTree;
           suffixTree.createTree(test_str);
-          // чтобы быть более точными, для одного набора проводим тест 10 раз
-          for(int k = 0; k < 10; k++){
+          // чтобы быть более точными, для одного набора проводим тест count_of_test_repeat раз
+          for(int k = 0; k < count_of_test_repeat; k++){
             const auto time_point_before = chrono::high_resolution_clock::now();
             suffixTree.getCountOfAllSubstr();
             const auto time_point_after = chrono::high_resolution_clock::now();
