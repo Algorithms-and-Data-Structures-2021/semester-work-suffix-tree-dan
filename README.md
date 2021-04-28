@@ -1,4 +1,4 @@
-# Название семестровой работы
+# Суффиксное дерево
 
 [![CMake](https://github.com/Algorithms-and-Data-Structures-2021/semester-work-suffix-tree-dan/actions/workflows/cmake.yml/badge.svg)](https://github.com/Algorithms-and-Data-Structures-2021/semester-work-suffix-tree-dan/actions/workflows/cmake.yml)
 
@@ -39,7 +39,7 @@
 1. С++ компилятор c поддержкой стандарта C++17.
 2. Система автоматизации сборки _CMake_ (версия _3.15.x_ и выше).
 3. Интерпретатор _Python_ (версия _3.7.x_ и выше).
-4. Рекомендуемый объем оперативной памяти - не менее 4 ГБ.
+4. Рекомендуемый объем оперативной памяти - не менее 8 ГБ.
 5. Свободное дисковое пространство объемом ~ 3 ГБ (набор данных для контрольных тестов).
 
 ## Сборка и запуск
@@ -55,7 +55,7 @@
  
  Либо вы можете склонировать себе проект в локальный репозиторий с помощью консольной команды:
 ```shell
-git clone https://github.com/Algorithms-and-Data-Structures-2021/semester-work-template.git
+git clone https://github.com/Algorithms-and-Data-Structures-2021/semester-work-suffix-tree-dan
 ```
 
 Для ручной сборки проекта в терминале введите:
