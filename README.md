@@ -60,18 +60,6 @@
 git clone https://github.com/Algorithms-and-Data-Structures-2021/semester-work-suffix-tree-dan
 ```
 
-Для ручной сборки проекта в терминале введите:
-
-```shell
-# переход в папку с проектом
-cd C:\Users\username\asd-projects\semester-work-template
-
-# создание папки для файлов сборки (чтобы не засорять папку с проектом) 
-mkdir -p build && cd build 
-
-# сборка проекта
-cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo && cmake --config RelWithDebInfo --build . 
-```
 
 Для автоматичекой сборки зайдите в IDE (у меня это CLion) и нажмите на кнопку сборки проекта (в моем случае зеленый молоток)
 
@@ -175,9 +163,22 @@ absolute path to the test string=/home/miguelius/CLionProjects/semester-work-suf
 Для начала разберемся с тем, по каким данным строятся графики. Вы можете увидеть файл data.csv. Давайте откроем  его!
 
 
-[csv-example](https://user-images.githubusercontent.com/70788419/116384011-1afadc80-a820-11eb-84b3-cda4b6f21308.png)
+![csv-example](https://user-images.githubusercontent.com/70788419/116384011-1afadc80-a820-11eb-84b3-cda4b6f21308.png)
 
+В принципе все и так понятно, но все равно распишем.
+- В первом столбце хранятся длины строк, на которых проводилось тестирование
+- Остальные столбцы хранят значения результатов теста в наносекундах
+- Если хотите построить графики для своих значений, поменяйте их в этом файле
 
+Теперь, когда в файле лежат нужные данные, построим графики
+```shell
+cd /your/path/to/the/directory/graphics
+python count_substr.py
+python has_substr.py
+python tree_creation.py
+```
+
+Теперь в папке со скриптами у вас появятся картники с графиками. Вот и всё!
 
 ## Источники
 1. [Вики](https://ru.wikipedia.org/wiki/%D0%A1%D1%83%D1%84%D1%84%D0%B8%D0%BA%D1%81%D0%BD%D0%BE%D0%B5_%D0%B4%D0%B5%D1%80%D0%B5%D0%B2%D0%BE)
