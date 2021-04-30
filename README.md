@@ -85,9 +85,6 @@ python generate_csv_dataset.py
 python substring_generator.py
 ```
 
-Тестовые данные представлены в CSV формате (см.
-[`dataset/data/dataset-example.csv`](dataset/data/dataset-example.csv)):
-
 Для удобства запуска контрольных тестов данные организованы в директориях:
 
 ```shell
